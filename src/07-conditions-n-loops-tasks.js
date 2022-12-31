@@ -336,47 +336,48 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(str) {
-  function check(strB, bracketsConfig) {
-    const bracketOC = {};
-    const bracketOne = {};
-    bracketsConfig.forEach((element) => {
-      if (element[0] !== element[1]) {
-        bracketOC[element[0]] = element[1];
-      } else { bracketOne[element[0]] = element[1]; }
-    });
-    const stackBrackets = [];
+function isBracketsBalanced(/* str */) {
+  // function check(strB, bracketsConfig) {
+  //   const bracketOC = {};
+  //   const bracketOne = {};
+  //   bracketsConfig.forEach((element) => {
+  //     if (element[0] !== element[1]) {
+  //       bracketOC[element[0]] = element[1];
+  //     } else { bracketOne[element[0]] = element[1]; }
+  //   });
+  //   const stackBrackets = [];
 
-    // let brck = String(strB).matchAll(/(\()|(\))/g)
+  //   // let brck = String(strB).matchAll(/(\()|(\))/g)
 
-    for (let index = 0; index < strB.length; index += 1) {
-      const element = strB[index];
-      if (bracketOne[element]) {
-        // значит закрывающая скобка
-        if (stackBrackets.length > 0) {
-          if (bracketOne[stackBrackets[stackBrackets.length - 1]] === element) {
-            stackBrackets.pop(); // удалить открывающую скобку
-          } else {
-            // добавить открывающую скобку
-            stackBrackets.push(element);
-          }
-        } else stackBrackets.push(element);
-      } else
-      if (!bracketOC[element]) {
-        // значит закрывающая скобка
-        if (stackBrackets.length > 0) {
-          if (bracketOC[stackBrackets[stackBrackets.length - 1]] === element) {
-            stackBrackets.pop(); // удалить открывающую скобку
-          } else break;
-        } else { stackBrackets.push(element); }
-      } else {
-        stackBrackets.push(element);
-      }
-    }
+  //   for (let index = 0; index < strB.length; index += 1) {
+  //     const element = strB[index];
+  //     if (bracketOne[element]) {
+  //       // значит закрывающая скобка
+  //       if (stackBrackets.length > 0) {
+  //         if (bracketOne[stackBrackets[stackBrackets.length - 1]] === element) {
+  //           stackBrackets.pop(); // удалить открывающую скобку
+  //         } else {
+  //           // добавить открывающую скобку
+  //           stackBrackets.push(element);
+  //         }
+  //       } else stackBrackets.push(element);
+  //     } else
+  //     if (!bracketOC[element]) {
+  //       // значит закрывающая скобка
+  //       if (stackBrackets.length > 0) {
+  //         if (bracketOC[stackBrackets[stackBrackets.length - 1]] === element) {
+  //           stackBrackets.pop(); // удалить открывающую скобку
+  //         } else break;
+  //       } else { stackBrackets.push(element); }
+  //     } else {
+  //       stackBrackets.push(element);
+  //     }
+  //   }
 
-    return stackBrackets.length === 0;
-  }
-  return check(str, [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']]);
+  //   return stackBrackets.length === 0;
+  // }
+  // return check(str, [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']]);
+  throw new Error('Not implemented');
 }
 
 
@@ -493,26 +494,30 @@ function getMatrixProduct(/* m1, m2 */) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  let result;
-  if (position[0][0] === position[0][1]
-    && position[0][0] === position[0][2]) result = position[0][0];
-  if (position[1][0] === position[1][1]
-    && position[1][0] === position[1][2]) result = position[1][0];
-  if (position[2][0] === position[2][1]
-    && position[2][0] === position[2][2]) result = position[2][0];
+  const [firstRow, twoRow, thridRow] = position;
 
-  if (position[0][0] === position[1][0]
-    && position[0][0] === position[2][0]) result = position[0][0];
-  if (position[0][1] === position[1][1]
-    && position[0][1] === position[2][1]) result = position[0][1];
-  if (position[0][2] === position[1][2]
-    && position[0][2] === position[2][2]) result = position[0][2];
+  if (firstRow[0] === firstRow[1]
+    && firstRow[0] === firstRow[2]
+    && firstRow[0] !== undefined) return firstRow[0];
+  if (twoRow[0] === twoRow[1]
+    && twoRow[0] === twoRow[2]
+    && twoRow[0] !== undefined) return twoRow[0];
+  if (thridRow[0] === thridRow[1]
+    && thridRow[0] === thridRow[2]
+    && thridRow[0] !== undefined) return thridRow[0];
 
-  if (position[0][0] === position[1][1]
-    && position[0][0] === position[2][2]) result = position[0][0];
-  if (position[0][2] === position[1][1]
-    && position[0][2] === position[2][0]) result = position[0][2];
-  return result;
+  if (firstRow[0] === twoRow[0]
+    && firstRow[0] === thridRow[0]) return firstRow[0];
+  if (firstRow[1] === twoRow[1]
+    && firstRow[1] === thridRow[1]) return firstRow[1];
+  if (firstRow[2] === twoRow[2]
+    && firstRow[2] === thridRow[2]) return firstRow[2];
+
+  if (firstRow[0] === twoRow[1]
+    && firstRow[0] === thridRow[2]) return firstRow[0];
+  if (firstRow[2] === twoRow[1]
+    && firstRow[2] === thridRow[0]) return firstRow[2];
+  return undefined;
 }
 
 
